@@ -17,12 +17,21 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      - name: Extract Changelog Section
-        id: changelog_reader
-        uses: gofreely/changelog-reader-action@v2
-        with:
-          version: ${{ github.ref_name }}
-          filename: CHANGELOG.md
+      - name: Get Version Content
+        id: get_text
+        run: |
+          # 1. Extract version from tag (e.g., v2.0.0 -> 2.0.0)
+          VERSION="${GITHUB_REF_NAME#v}"
+          
+          # 2. Extract specific section from CHANGELOG.md
+          # It searches from "## [VERSION]" until the next "## [" header
+          # Then removes the first line (the version header) and the last line (the next header)
+          sed -n "/## \[$VERSION\]/,/## \[/p" CHANGELOG.md | sed '1d;$d' > release_notes.txt
+          
+          # 3. Debug: display the extracted content in the Action logs for verification
+          echo "--- Release Notes Extracted ---"
+          cat release_notes.txt
+          echo "-------------------------------"
 
       # 1. Preparing Windows package
       - name: Build Windows VSIX
@@ -52,6 +61,8 @@ jobs:
             image-webify-win32-x64.vsix
             image-webify-darwin-arm64.vsix
             image-webify-linux-x64.vsix
-          body: ${{ steps.changelog_reader.outputs.body }}
+          body_path: release_notes.txt
+          draft: false
+          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

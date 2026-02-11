@@ -1,8 +1,8 @@
-# Change Log
+# Changelog
 
 All notable changes to the "image-webify" extension will be documented in this file.
 
-## [1.0.0] - 2026-02-10
+## [1.0.0] - 2026-02-11
 
 ### Added
 - **WebP Support**: Convert images (PNG, JPG, GIF, TIFF) to WebP format directly from the Explorer context menu.
