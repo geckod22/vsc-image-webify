@@ -1,0 +1,57 @@
+name: Create GitHub Release
+
+on:
+  push:
+    tags:
+      - 'v*' # activating for tags like v1.0.1, v1.1.0, ecc.
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Extract Changelog Section
+        id: changelog_reader
+        uses: say8425/changelog-reader-action@v3
+        with:
+          version: ${{ github.ref_name }}
+          release_notes: true
+
+      # 1. Preparing Windows package
+      - name: Build Windows VSIX
+        run: |
+          npm install --os=win32 --cpu=x64 sharp
+          npx vsce package --target win32-x64 --out image-webify-win32-x64.vsix
+
+      # 2. Preparing macOS (Apple Silicon) package
+      - name: Build macOS ARM VSIX
+        run: |
+          rm -rf node_modules
+          npm install --os=darwin --cpu=arm64 sharp
+          npx vsce package --target darwin-arm64 --out image-webify-darwin-arm64.vsix
+
+      # 3. Preparing Linux package
+      - name: Build Linux VSIX
+        run: |
+          rm -rf node_modules
+          npm install --os=linux --cpu=x64 sharp
+          npx vsce package --target linux-x64 --out image-webify-linux-x64.vsix
+
+      # 4. Release Creation
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            image-webify-win32-x64.vsix
+            image-webify-darwin-arm64.vsix
+            image-webify-linux-x64.vsix
+          body: ${{ steps.changelog_reader.outputs.log_entry }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

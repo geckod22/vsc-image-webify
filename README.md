@@ -4,6 +4,8 @@
 
 Image Webify allows you to convert your images (JPG, PNG, GIF, TIFF) to WebP or AVIF formats directly from the Visual Studio Code Explorer context menu.
 
+**Native support for Windows, macOS (Apple Silicon), and Linux included. No external dependencies required.**
+
 ## 📦 Features
 
 * One-Click Conversion: Right-click any image and convert it instantly.
@@ -11,6 +13,7 @@ Image Webify allows you to convert your images (JPG, PNG, GIF, TIFF) to WebP or 
 * Parallel Performance: Uses parallel processing to handle multiple files at lightning speed.
 * Smart Selection: Automatically filters out non-image files if you accidentally select them.
 * Customizable Quality: Choose your compression level or set a global default in the settings.
+
 
 ## 📋 Usage
 
