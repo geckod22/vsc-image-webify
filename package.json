@@ -6,17 +6,17 @@
   "icon": "images/icon.png",
   "repository": "https://github.com/geckod22/vsc-image-webify",
   "license": "MIT",
-  "publisher": "geckod22",
+  "publisher": "armando-liccardo-dev",
   "author": {
     "name": "Armando Liccardo",
-	"url": "https://github.com/geckod22",
+    "url": "https://github.com/geckod22",
     "email": "li.armando82@gmail.com"
   },
   "keywords": [
     "image",
     "webp",
     "avif",
-	"conversion"
+    "conversion"
   ],
   "engines": {
     "vscode": "^1.109.0"
@@ -27,35 +27,35 @@
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
-	"configuration": {
-    "title": "Image Webify",
-	 "properties": {
-		"image-webify.defaultQualityWebp": {
-			"type": "integer",
-			"default": 80,
-			"minimum": 1,
-			"maximum": 100,
-			"description": "Default Quality for the conversion to webp format"
-		},
-		"image-webify.askForQualityWebp": {
-			"type": "boolean",
-			"default": true,
-			"description": "If true, it asks the user the quality for each conversion. If false, always use the default value."
-		},
-		"image-webify.defaultQualityAvif": {
-			"type": "integer",
-			"default": 80,
-			"minimum": 1,
-			"maximum": 100,
-			"description": "Default Quality for the conversion to Avif format"
-		},
-		"image-webify.askForQualityAvif": {
-			"type": "boolean",
-			"default": true,
-			"description": "If true, it asks the user the quality for each conversion. If false, always use the default value."
-		}
-	  }
-	},
+    "configuration": {
+      "title": "Image Webify",
+      "properties": {
+        "image-webify.defaultQualityWebp": {
+          "type": "integer",
+          "default": 80,
+          "minimum": 1,
+          "maximum": 100,
+          "description": "Default Quality for the conversion to webp format"
+        },
+        "image-webify.askForQualityWebp": {
+          "type": "boolean",
+          "default": true,
+          "description": "If true, it asks the user the quality for each conversion. If false, always use the default value."
+        },
+        "image-webify.defaultQualityAvif": {
+          "type": "integer",
+          "default": 80,
+          "minimum": 1,
+          "maximum": 100,
+          "description": "Default Quality for the conversion to Avif format"
+        },
+        "image-webify.askForQualityAvif": {
+          "type": "boolean",
+          "default": true,
+          "description": "If true, it asks the user the quality for each conversion. If false, always use the default value."
+        }
+      }
+    },
     "commands": [
       {
         "command": "image-webify.convertToWebp",
@@ -75,7 +75,7 @@
           "when": "resourceExtname =~ /\\.(png|jpg|jpeg|gif)/ && !explorerResourceIsFolder",
           "group": "navigation"
         },
-		{
+        {
           "command": "image-webify.convertToAvif",
           "when": "resourceExtname =~ /\\.(png|jpg|jpeg|gif)/ && !explorerResourceIsFolder",
           "group": "navigation"
