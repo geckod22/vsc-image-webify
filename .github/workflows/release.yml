@@ -19,10 +19,10 @@ jobs:
 
       - name: Extract Changelog Section
         id: changelog_reader
-        uses: say8425/changelog-reader-action@v3
+        uses: gofreely/changelog-reader-action@v2
         with:
           version: ${{ github.ref_name }}
-          release_notes: true
+          filename: CHANGELOG.md
 
       # 1. Preparing Windows package
       - name: Build Windows VSIX
@@ -52,6 +52,6 @@ jobs:
             image-webify-win32-x64.vsix
             image-webify-darwin-arm64.vsix
             image-webify-linux-x64.vsix
-          body: ${{ steps.changelog_reader.outputs.log_entry }}
+          body: ${{ steps.changelog_reader.outputs.body }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
